@@ -3,19 +3,51 @@ name = "headofcontext-client"
 version = "0.2.0"
 description = "Thin Python client for the HeadOfContext authorization service."
 readme = "README.md"
+keywords = ["authorization", "ai-agents", "headofcontext", "client", "sdk"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Typing :: Typed",
+]
 license = "Apache-2.0"
 requires-python = ">=3.11"
+authors = [{ name = "HeadOfContext contributors" }]
+# The only runtime dependency. The service API is the sole boundary with the core.
 dependencies = ["httpx>=0.27"]
 
-[dependency-groups]
-dev = ["pytest>=8.3", "pytest-asyncio>=0.24", "ruff>=0.7", "mypy>=1.13"]
+[project.urls]
+Homepage = "https://headofcontext.com"
+Documentation = "https://headofcontext.com/doc"
+Source = "https://github.com/headofcontext/sdk-python"
+Changelog = "https://github.com/headofcontext/sdk-python/releases"
+Service = "https://github.com/headofcontext/headofcontext"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build.targets.sdist]
+include = ["src/headofcontext_client", "/contract", "README.md", "LICENSE", "NOTICE", "SECURITY.md"]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/headofcontext_client"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.7",
+  "mypy>=1.13",
+]
 
 [tool.ruff]
 line-length = 100
@@ -23,16 +55,27 @@ target-version = "py311"
 src = ["src", "tests"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "B", "UP", "S", "N", "ANN", "RUF", "SIM"]
-ignore = ["S101", "ANN401", "N818"]  # exceptions are named after the HTTP condition
+select = ["E", "F", "I", "B", "UP", "S", "N", "ANN", "RUF", "SIM", "PL"]
+ignore = [
+  "S101",    # assert is fine in tests
+  "PLR2004", # magic values in tests
+  "PLR0913", # many args are fine on typed constructors
+  "ANN401",  # Any is sometimes needed at boundaries
+  "N818",    # exceptions are named after the HTTP condition
+]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S", "ANN"]
+"tests/**" = ["S", "PL", "ANN"]
 
 [tool.mypy]
 python_version = "3.11"
 strict = true
+warn_unreachable = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+markers = [
+  "contract: runs against a live service (HOC_API_URL and HOC_KEYCLOAK_URL)",
+]
+filterwarnings = ["error::DeprecationWarning:headofcontext_client.*"]

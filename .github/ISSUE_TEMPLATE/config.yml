@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a vulnerability
+    url: https://github.com/headofcontext/sdk-python/security/advisories/new
+    about: Token leaks and anything that widens a decision go through private reporting, never a public issue.
+  - name: Service issues
+    url: https://github.com/headofcontext/headofcontext/issues
+    about: A wrong decision comes from the service, not from this client. Report it there.
