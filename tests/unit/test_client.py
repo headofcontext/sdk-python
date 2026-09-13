@@ -165,9 +165,7 @@ async def test_ready(client: HeadOfContext, service: FakeService) -> None:
     assert (method, path, auth) == ("GET", "/v1/ready", None)
 
 
-async def test_not_ready_is_data_not_an_error(
-    client: HeadOfContext, service: FakeService
-) -> None:
+async def test_not_ready_is_data_not_an_error(client: HeadOfContext, service: FakeService) -> None:
     """ADR 0020: a 503 with a readiness body is the probe's answer, not a transport failure."""
     service.responses["/v1/ready"] = (
         503,
@@ -185,9 +183,7 @@ async def test_ready_behind_a_dead_proxy_is_not_ready(
     assert body["status"] == "not_ready" and body["checks"] == {}
 
 
-async def test_ready_other_errors_still_raise(
-    client: HeadOfContext, service: FakeService
-) -> None:
+async def test_ready_other_errors_still_raise(client: HeadOfContext, service: FakeService) -> None:
     service.responses["/v1/ready"] = (429, {"reason": "rate_limited", "detail": "slow down"})
     with pytest.raises(HeadOfContextError) as exc:
         await client.ready()

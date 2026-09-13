@@ -1,0 +1,28 @@
+name: Bug report
+description: A wrong result, a crash, a documentation gap. Not for vulnerabilities.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: >
+        A way for the client to widen what the service decided, or to leak a token, is a
+        vulnerability: use **Report a vulnerability** instead of this form.
+  - type: input
+    id: version
+    attributes:
+      label: Client version, and service version if known
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: The call, the response status and body. No tokens, no document content.
+    validations:
+      required: true

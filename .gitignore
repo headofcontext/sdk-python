@@ -8,3 +8,11 @@ dist/
 build/
 *.egg-info/
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+.claude/settings.local.json
+CLAUDE.local.md
+.coverage
+coverage.xml
