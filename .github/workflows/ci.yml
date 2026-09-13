@@ -29,6 +29,7 @@ jobs:
         with:
           enable-cache: true
           cache-dependency-glob: uv.lock
+          cache-suffix: py${{ matrix.python }}
       - run: uv sync --locked
       - run: uv run ruff check .
       - run: uv run ruff format --check .
