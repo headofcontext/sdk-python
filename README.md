@@ -6,8 +6,9 @@
 ![python](https://img.shields.io/badge/python-3.11%2B-blue.svg)
 
 The Python client for [HeadOfContext](https://github.com/headofcontext/headofcontext), the
-authorization layer for AI agents: one permission model for humans and their agents, under one
-principal chain, for READ, ACT, DELEGATE and REMEMBER.
+authorization layer for teams where everyone builds agents: each agent inherits the rights of
+the person behind it, never more, under one principal chain, for READ, ACT, DELEGATE and
+REMEMBER.
 
 The client is thin on purpose. It depends on `httpx` only, it carries tokens to the service and
 returns the service's decisions, and it never decides anything itself. It is written against
