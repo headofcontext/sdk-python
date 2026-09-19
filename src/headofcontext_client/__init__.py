@@ -1,6 +1,11 @@
 """headofcontext-client: thin client for the HeadOfContext service."""
 
-from headofcontext_client.auth import KeycloakClientCredentials, StaticToken, TokenProvider
+from headofcontext_client.auth import (
+    ClientCredentials,
+    KeycloakClientCredentials,
+    StaticToken,
+    TokenProvider,
+)
 from headofcontext_client.client import HeadOfContext, Session
 from headofcontext_client.errors import (
     Forbidden,
@@ -28,6 +33,7 @@ __all__ = [
     "Approval",
     "ApprovalPending",
     "Chain",
+    "ClientCredentials",
     "Decision",
     "FilterResult",
     "Forbidden",
